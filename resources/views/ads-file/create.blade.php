@@ -21,6 +21,18 @@
                 margin: 0;
             }
 
+            .alert {
+                font-style: italic;
+                font-weight: bold;
+            }
+            .alert-success {
+                background-color: lightgreen;
+            }
+
+            .alert-danger {
+                background-color: lightcoral;
+            }
+
             .full-height {
                 height: 100vh;
             }
@@ -71,12 +83,29 @@
                 enctype="multipart/form-data">
                 <div>
                     {{ csrf_field() }}
-                    <label for="file">Choose Ads.txt file to upload</label><br>
+                    <label for="file">Choose Ads.txt file to upload</label>
+                    <br><br><br>
                     <input type="file" id="ads-file" name="ads-file">
                 </div>
                 <div>
                     <button>Upload</button>
                 </div>
+                <br><br><br>
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                <br><br><br>
+                @if(session()->has('success'))
+                <div class="alert alert-success">
+                    {{ Session::get('success') }}
+                </div>
+                @endif
             </form>
         </div>
     </body>

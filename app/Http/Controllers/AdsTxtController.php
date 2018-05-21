@@ -57,7 +57,7 @@ class AdsTxtController extends Controller
         }
 
         return Redirect::route('ads-file.create')->with([
-            'msg' => 'The ads file was created correctly.',
+            'success' => 'The ads file was created correctly.',
             'name' => $filename
         ]);
     }
