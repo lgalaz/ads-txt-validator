@@ -43,7 +43,7 @@ class ValidateAdsTxtFileTest extends TestCase
                 'ads-file' => 'No valid records found.'
             ]);
 
-        unlink(storage_path('app/uploads/') . session('name'));
+        unlink(storage_path('app/public/') . session('name'));
     }
 
     /** @test */
@@ -63,7 +63,7 @@ class ValidateAdsTxtFileTest extends TestCase
                 'ads-file' => 'Wrong number of fields in record.'
             ]);
 
-        unlink(storage_path('app/uploads/') . session('name'));
+        unlink(storage_path('app/public/') . session('name'));
     }
 
     /** @test */
@@ -83,7 +83,7 @@ class ValidateAdsTxtFileTest extends TestCase
                  'ads-file' => 'Invalid variable declaration in record.'
              ]);
 
-        unlink(storage_path('app/uploads/') . session('name'));
+        unlink(storage_path('app/public/') . session('name'));
     }
 
     /** @test */
@@ -103,6 +103,6 @@ class ValidateAdsTxtFileTest extends TestCase
                  'success' => 'The ads file was created correctly.'
              ]);
 
-        unlink(storage_path('app/uploads/') . session('name'));
+        unlink(storage_path('app/public/') . session('name'));
     }
 }

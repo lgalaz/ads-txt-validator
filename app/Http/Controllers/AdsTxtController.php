@@ -43,13 +43,13 @@ class AdsTxtController extends Controller
 
         $filename = str_random(30) . '.txt';
 
-        $request->file('ads-file')->storeAs('uploads', $filename);
+        $request->file('ads-file')->storeAs('public', $filename);
 
         AdsTxt::create([
             'contents' => $content,
             'name' => $filename,
             'status' => (count($errors) > 0) ? 'valid' : 'invalid',
-            'url' => asset('uploads/' . $filename)
+            'url' => asset('storage/' . $filename)
         ]);
 
         if ($errors) {
