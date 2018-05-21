@@ -59,39 +59,39 @@ class ValidateAdsTxtFileTest extends TestCase
             ]);
     }
 
-     /** @test */
-     public function it_displays_errors_for_wrong_var_declaration_in_record()
-     {
-         $name = 'invalid-var-declaration.txt';
-         $stub = __DIR__ . '/../stubs/' . $name;
-         $path = sys_get_temp_dir() . '/' . $name;
- 
-         copy($stub, $path);
- 
-         $file = new UploadedFile($path, $name, 'text/plain', filesize($path), null, true);
- 
-         $this->call('POST', route('ads-file.post'), [], [], ['ads-file' => $file], ['Accept' => 'application/json'])
+    /** @test */
+    public function it_displays_errors_for_wrong_var_declaration_in_record()
+    {
+        $name = 'invalid-var-declaration.txt';
+        $stub = __DIR__ . '/../stubs/' . $name;
+        $path = sys_get_temp_dir() . '/' . $name;
+
+        copy($stub, $path);
+
+        $file = new UploadedFile($path, $name, 'text/plain', filesize($path), null, true);
+
+        $this->call('POST', route('ads-file.post'), [], [], ['ads-file' => $file], ['Accept' => 'application/json'])
              ->assertRedirect(route('ads-file.create'))
              ->assertSessionHasErrors([
                  'ads-file' => 'Invalid variable declaration in record.'
              ]);
-     }
+    }
 
-     /** @test */
-     public function it_saves_valid_ads_txt_file()
-     {
-         $name = 'valid-ads-file.txt';
-         $stub = __DIR__ . '/../stubs/' . $name;
-         $path = sys_get_temp_dir() . '/' . $name;
- 
-         copy($stub, $path);
- 
-         $file = new UploadedFile($path, $name, 'text/plain', filesize($path), null, true);
- 
-         $this->call('POST', route('ads-file.post'), [], [], ['ads-file' => $file], ['Accept' => 'application/json'])
+    /** @test */
+    public function it_saves_valid_ads_txt_file()
+    {
+        $name = 'valid-ads-file.txt';
+        $stub = __DIR__ . '/../stubs/' . $name;
+        $path = sys_get_temp_dir() . '/' . $name;
+
+        copy($stub, $path);
+
+        $file = new UploadedFile($path, $name, 'text/plain', filesize($path), null, true);
+
+        $this->call('POST', route('ads-file.post'), [], [], ['ads-file' => $file], ['Accept' => 'application/json'])
              ->assertRedirect(route('ads-file.create'))
              ->assertSessionHas([
-                 'msg' => 'The ads file was created correctly.'
+                 'success' => 'The ads file was created correctly.'
              ]);
-     }
+    }
 }
