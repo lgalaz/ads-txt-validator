@@ -1,0 +1,4 @@
+ # Example ads.txt
+rubiconproject.com, 11078, DIRECT, 0bfd66d529a55807 
+contact=lgalaz@gmail.com, contact2=lgalaz@gmail.com
+

@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/ads-file/create', 'ads-file.create')->name('ads-file.create');
+
+Route::post('/ads-file', 'AdsTxtController@store')->name('ads-file.post');

@@ -1,0 +1,4 @@
+ # Example ads.txt
+google.com, pub-7439281311086140, DIRECT, f08c47fec0942fa0 # with a comment
+rubiconproject.com, 11078, DIRECT, 0bfd66d529a55807 
+c.amazon-adsystem.com, 3159, DIRECT 
