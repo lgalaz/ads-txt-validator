@@ -41,7 +41,7 @@ class AdsTxtController extends Controller
             $errors = ['ads-file' => $e->getMessage()];
         }
 
-        $filename = str_random(30);
+        $filename = str_random(30) . '.txt';
 
         $request->file('ads-file')->storeAs('uploads', $filename);
 
@@ -53,7 +53,9 @@ class AdsTxtController extends Controller
         ]);
 
         if ($errors) {
-            return Redirect::route('ads-file.create')->withErrors($errors);
+            return Redirect::route('ads-file.create')
+                ->withErrors($errors)
+                ->with(['name' => $filename]);
         }
 
         return Redirect::route('ads-file.create')->with([

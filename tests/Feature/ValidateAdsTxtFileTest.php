@@ -4,9 +4,12 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ValidateAdsTxtFileTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @test */
     public function it_loads_the_create_page()
     {
@@ -39,6 +42,8 @@ class ValidateAdsTxtFileTest extends TestCase
             ->assertSessionHasErrors([
                 'ads-file' => 'No valid records found.'
             ]);
+
+        unlink(storage_path('app/uploads/') . session('name'));
     }
 
     /** @test */
@@ -57,6 +62,8 @@ class ValidateAdsTxtFileTest extends TestCase
             ->assertSessionHasErrors([
                 'ads-file' => 'Wrong number of fields in record.'
             ]);
+
+        unlink(storage_path('app/uploads/') . session('name'));
     }
 
     /** @test */
@@ -75,6 +82,8 @@ class ValidateAdsTxtFileTest extends TestCase
              ->assertSessionHasErrors([
                  'ads-file' => 'Invalid variable declaration in record.'
              ]);
+
+        unlink(storage_path('app/uploads/') . session('name'));
     }
 
     /** @test */
@@ -88,10 +97,12 @@ class ValidateAdsTxtFileTest extends TestCase
 
         $file = new UploadedFile($path, $name, 'text/plain', filesize($path), null, true);
 
-        $this->call('POST', route('ads-file.post'), [], [], ['ads-file' => $file], ['Accept' => 'application/json'])
+        $content = $this->call('POST', route('ads-file.post'), [], [], ['ads-file' => $file], ['Accept' => 'application/json'])
              ->assertRedirect(route('ads-file.create'))
              ->assertSessionHas([
                  'success' => 'The ads file was created correctly.'
              ]);
+
+        unlink(storage_path('app/uploads/') . session('name'));
     }
 }

@@ -4,8 +4,6 @@ namespace App\Jobs;
 
 use Illuminate\Foundation\Bus\Dispatchable;
 use PHPUnit\Runner\Exception;
-use Mockery\Expectation;
-use App\AdsTxt;
 
 class ParseAdsTxt
 {
@@ -51,13 +49,12 @@ class ParseAdsTxt
             if (strlen($record) < 1) {
                 break;
             }
-            
+
             $index = strpos($record, '#');
 
             if ($index > 0) {
                 $filteredRecords[] = substr($record, 0, $index);
             } elseif ($index === false) {
-               
                 $filteredRecords[] = $record;
             }
         }
@@ -70,32 +67,32 @@ class ParseAdsTxt
         foreach ($records as $record) {
             if (strpos($record, '=') !== false) {
                 $this->validateVariableDeclaration($record);
-            } else if (strpos($record, ',') !== false) {
+            } elseif (strpos($record, ',') !== false) {
                 $this->validateFields($record);
             }
         }
     }
 
-    private function validateFields($record) 
+    private function validateFields($record)
     {
-        $fields = explode(",", $record);
+        $fields = explode(',', $record);
 
         if (count($fields) < 3 || count($fields) > 4) {
             throw new Exception('Wrong number of fields in record.');
         }
 
-        // TODO: maybe regular expressions could be used to validate fields. 
+        // TODO: maybe regular expressions could be used to validate fields.
         // i.e. first field seems to be a domain and next fields valid alfanumeric.
     }
 
-    private function validateVariableDeclaration($record) 
+    private function validateVariableDeclaration($record)
     {
-        $fields = explode("=", $record);
+        $fields = explode('=', $record);
 
         if (count($fields) !== 2) {
             throw new Exception('Invalid variable declaration in record.');
         }
 
-        // TODO: use regular expressions could be used to validate variable name and assigned value. 
+        // TODO: use regular expressions could be used to validate variable name and assigned value.
     }
 }
